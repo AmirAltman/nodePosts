@@ -1,9 +1,14 @@
 const express = require("express");
 const router = express.Router();
+const Post = require("../models/post")
 
 router.get('/topcreators', async (req, res) => {
-    // todo: Get the top 10 of post creators
-    const topCreators = ['users']
+    const aggRes = await Post.aggregate([
+        {"$group" : {_id:"$creator", count:{$sum:1}}},
+        {'$sort':{count:-1}},
+        {'$limit': 5}
+    ]);
+    const topCreators = aggRes.map(creator=>creator._id)
     res.send({success: true, topCreators})
 })
 
