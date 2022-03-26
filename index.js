@@ -5,8 +5,11 @@ const mongoose = require('mongoose');
 
 
 const startServer = async ()=>{
+    let mongoURL='mongodb://localhost:27017/posts';
+    if(process.argv.length ===3)
+        mongoURL= process.argv[2]
     try{
-        await mongoose.connect('mongodb://localhost:27017/posts',{useNewUrlParser: true})
+        await mongoose.connect(mongoURL,{useNewUrlParser: true})
         console.log("connected to db successfully");
         const app = express();
         app.use(express.json());
