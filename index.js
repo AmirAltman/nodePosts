@@ -1,5 +1,6 @@
 const express = require('express')
-const routes = require('./routes/posts')
+const postRoutes = require('./routes/posts')
+const statisticsRoutes = require('./routes/statistics')
 const mongoose = require('mongoose');
 
 
@@ -9,7 +10,8 @@ const startServer = async ()=>{
         console.log("connected to db successfully");
         const app = express();
         app.use(express.json());
-        app.use(routes);
+        app.use(postRoutes);
+        app.use('/statistics',statisticsRoutes);
 
         app.listen(1337,()=>{
             console.log("server is listening on port 1337");
