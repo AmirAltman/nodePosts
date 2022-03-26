@@ -7,7 +7,7 @@ router.get('/topcreators', async (req, res) => {
     const aggRes = await Post.aggregate([
         {"$group" : {_id:"$creator", count:{$sum:1}}},
         {'$sort':{count:-1}},
-        {'$limit': 5}
+        {'$limit': 10}
     ]);
     const topCreators = aggRes.map(creator=>creator._id)
     res.send({success: true, topCreators})

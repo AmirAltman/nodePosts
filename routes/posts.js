@@ -22,7 +22,7 @@ router.get("/posts", async (req, res) => {
     res.send({success: true,posts});
     let timer = process.hrtime(startTimer)
     const runTime =(timer[0] * 1e9 + timer[1])/1e9
-    saveRunTime('getPost',runTime)
+    saveRunTime('get-posts-list',runTime)
 });
 
 router.post("/posts", async (req, res) => {
@@ -34,12 +34,12 @@ router.post("/posts", async (req, res) => {
         res.send({success: true, post});
         let timer = process.hrtime(startTimer)
         const runTime =(timer[0] * 1e9 + timer[1])/1e9
-        saveRunTime('postPost',runTime)
+        saveRunTime('create-a-post',runTime)
     } catch (e) {
         res.status(500).send({success: true, error: e.message});
         let timer = process.hrtime(startTimer)
         const runTime =(timer[0] * 1e9 + timer[1])/1e9
-        saveRunTime('postPost',runTime)
+        saveRunTime('create-a-post',runTime)
     }
 });
 
