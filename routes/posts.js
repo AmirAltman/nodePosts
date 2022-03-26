@@ -22,8 +22,7 @@ router.post("/posts", async (req, res) => {
 });
 
 router.get('/postnumber', async (req, res) => {
-    // todo: Get the total posts number
-    const postCount = 123
+    const postCount = await Post.count()
     res.send({success: true, postCount})
 })
 
