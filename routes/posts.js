@@ -21,7 +21,6 @@ router.get("/posts", async (req, res) => {
     const posts = await Post.find({}, null, {sort: {createdAt: -1}, limit: PAGE_SIZE, skip: (PAGE_SIZE * page)});
     res.send({success: true,posts});
     let timer = process.hrtime(startTimer)
-    console.log(`Time Taken to execute: ${(timer[0] * 1e9 + timer[1])/1e9} seconds`)
     const runTime =(timer[0] * 1e9 + timer[1])/1e9
     saveRunTime('getPost',runTime)
 });
@@ -34,11 +33,11 @@ router.post("/posts", async (req, res) => {
         await post.save();
         res.send({success: true, post});
         let timer = process.hrtime(startTimer)
-        console.log(`Time Taken to execute: ${(timer[0] * 1e9 + timer[1])/1e9} seconds`)
+        const runTime =(timer[0] * 1e9 + timer[1])/1e9
+        saveRunTime('postPost',runTime)
     } catch (e) {
         res.status(500).send({success: true, error: e.message});
         let timer = process.hrtime(startTimer)
-        console.log(`Time Taken to execute: ${(timer[0] * 1e9 + timer[1])/1e9} seconds`)
         const runTime =(timer[0] * 1e9 + timer[1])/1e9
         saveRunTime('postPost',runTime)
     }
