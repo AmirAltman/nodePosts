@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Post = require("../models/post")
+const Statistics = require("../models/statistics")
 
 router.get('/topcreators', async (req, res) => {
     const aggRes = await Post.aggregate([
@@ -13,8 +14,9 @@ router.get('/topcreators', async (req, res) => {
 })
 
 router.get('/runtimes', async (req, res) => {
-    // todo: Get the average run-time of the first 2 functions
-    const runTimes = {}
+    const runTimes = await Statistics.aggregate([
+        {"$group" : {_id:"$actionType", avgRunTime:{$avg:"$runTime"}}},
+    ]);
     res.send({success: true, runTimes})
 })
 
